@@ -1,4 +1,4 @@
-# TensorFlow_CAM
+# TensorFlow Grad-CAM Utility
 An utility that visualizes your convolutional neural network's "attention" on the region of input image, all operations can be done in a console command, supports frozen model(pb and saved_model format). This is a TensorFlow and Python implementation of Grad-CAM method(https://arxiv.org/abs/1610.02391).
 
 ## Prerequisites
@@ -79,7 +79,11 @@ python grad_cam.py \
     --featuremap_tensor_name=MobilenetV2/Conv_1/Relu6 \
     --logits_tensor_name=MobilenetV2/Logits/Squeeze
 ```
-It ouputs an image file `result1.png`.
+The input is at the left, the ouput image file `result1.png` is at the right:
+
+<img src="images/cat_dog.jpg" width=299 height=224> <img src="doc/result1.png" width=224 height=224>
+
+The region that is close to red represents high response to the class 'bull mastiff' (244).
 
 ## License
 [MIT License](https://raw.githubusercontent.com/shucheng-liu/TensorFlow_CAM/master/LICENSE)
