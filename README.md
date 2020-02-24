@@ -63,7 +63,7 @@ optional arguments:
                         allocate for each process
 ```
 
-## Example
+## Examples
 ### Let's try out!
 There is a classification model zoo called [TensorFlow-Slim](https://github.com/tensorflow/models/tree/master/research/slim), which is officially supported by TensorFlow team. I am going to test one of models to demonstrate the usage of the utility.
 
@@ -83,7 +83,47 @@ The input is at the left, the ouput image file `result1.png` is at the right:
 
 <img src="images/cat_dog.jpg" width=299 height=224> <img src="doc/result1.png" width=224 height=224>
 
-The region that is close to red represents high response to the class 'bull mastiff' (244).
+The region that is close to red represents high response to the class 'bull mastiff'(244).
+
+### What if I'm interested in the cat, not the dog?
+This utility visualizes the most probable class by default, which was 'bull mastiff'(244) in the previous example.
+
+For this case, just assigns your targeting class index to argument `--class_index`, so the complete command would be:
+```
+python grad_cam.py \
+    --input_path=images/cat_dog.jpg \
+    --input_width=224 \
+    --input_height=224 \
+    --preprocess=inception \
+    --class_index=283 \
+    --model_path=mobilenet_v2_1.0_224/mobilenet_v2_1.0_224_frozen.pb \
+    --input_tensor_name=input \
+    --featuremap_tensor_name=MobilenetV2/Conv_1/Relu6 \
+    --logits_tensor_name=MobilenetV2/Logits/Squeeze
+```
+The targeting class is 'tiger cat'(283), the output becomes:
+
+<img src="doc/result1_cat.png" width=224 height=224>
+
+### Batch processing
+If there are a bunch of images to be processed, you don't have to run the command many times.
+
+Put them all under the same directory, then assign the directory path to argument `--input_path`. For instance, there are two images under `TensorFlow_CAM/images`, modify the command to:
+```
+python grad_cam.py \
+    --input_path=images \
+    --input_width=224 \
+    --input_height=224 \
+    --preprocess=inception \
+    --model_path=mobilenet_v2_1.0_224/mobilenet_v2_1.0_224_frozen.pb \
+    --input_tensor_name=input \
+    --featuremap_tensor_name=MobilenetV2/Conv_1/Relu6 \
+    --logits_tensor_name=MobilenetV2/Logits/Squeeze
+```
+The input images(at left) and the corresponding output images(at right) as follows:
+
+<img src="images/cat_dog.jpg" width=299 height=224> <img src="doc/result1.png" width=224 height=224> 'bull mastiff'(244)
+<img src="images/tabbycat_dog.jpg" width=221 height=224> <img src="doc/result2.png" width=224 height=224> 'Border collie'(233)
 
 ## License
 [MIT License](https://raw.githubusercontent.com/shucheng-liu/TensorFlow_CAM/master/LICENSE)
