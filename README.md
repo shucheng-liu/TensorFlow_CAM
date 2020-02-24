@@ -123,6 +123,7 @@ python grad_cam.py \
 The input images(at left) and the corresponding output images(at right) as follows:
 
 <img src="images/cat_dog.jpg" width=299 height=224> <img src="doc/result1.png" width=224 height=224> 'bull mastiff'(244)
+
 <img src="images/tabbycat_dog.jpg" width=221 height=224> <img src="doc/result2.png" width=224 height=224> 'Border collie'(233)
 
 ## License
